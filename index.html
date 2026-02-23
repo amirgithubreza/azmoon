@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آزمون HTML و CSS - سوالات</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            min-height: 100vh;
+            direction: rtl;
+            line-height: 2;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            color: rgba(255,255,255,0.85);
+            margin-top: 5px;
+            font-size: 1em;
+        }
+        
+        .stats-bar {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+        
+        .stat-item span {
+            display: block;
+            font-size: 1.5em;
+            font-weight: 800;
+            color: #a78bfa;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px 60px;
+        }
+        
+        .question-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 0 16px 16px 0;
+        }
+        
+        .question-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 0.95em;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .question-text .q-content {
+            flex: 1;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95em;
+        }
+        
+        .options li:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+        
+        .options li.selected {
+            background: rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+            color: #fff;
+        }
+        
+        .options li.correct {
+            background: rgba(34, 197, 94, 0.25);
+            border-color: #22c55e;
+            color: #4ade80;
+        }
+        
+        .options li.wrong {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: #ef4444;
+            color: #f87171;
+        }
+        
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            font-weight: 700;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+        
+        .option-text {
+            direction: ltr;
+            text-align: right;
+            unicode-bidi: plaintext;
+            word-break: break-word;
+        }
+        
+        .option-text-rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 50px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Vazirmatn', Tahoma;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+        }
+        
+        .btn-reset {
+            background: rgba(255,255,255,0.1);
+            color: #ccc;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .btn-answers {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.4);
+        }
+        
+        .btn-answers:hover {
+            transform: translateY(-3px);
+        }
+        
+        .result-box {
+            display: none;
+            background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+            border: 2px solid #667eea;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-box.show {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-score {
+            font-size: 3em;
+            font-weight: 900;
+            color: #a78bfa;
+        }
+        
+        .result-text {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+        }
+        
+        .code-block {
+            direction: ltr;
+            text-align: left;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            display: block;
+            margin: 8px 0;
+            font-size: 0.9em;
+            color: #a78bfa;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255,255,255,0.2);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin2 {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239,68,68,0.4);
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-pdf:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.4em; }
+            .container { padding: 0 12px 40px; }
+            .question-card { padding: 18px 15px; }
+            .btn { padding: 12px 30px; font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">در حال ساخت فایل PDF...</div>
+    </div>
+
+    <div class="header">
+        <h1>🎓 آزمون جامع HTML و CSS</h1>
+        <p>۴۰ سوال تستی - مفاهیم پایه طراحی وب</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stat-item">تعداد سوالات<span>۴۰</span></div>
+        <div class="stat-item">پاسخ داده شده<span id="answeredCount">۰</span></div>
+        <div class="stat-item">درصد پیشرفت<span id="progressPercent">۰٪</span></div>
+    </div>
+    
+    <div class="container" id="quizContainer">
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: "Html مخفف کدام یک از عبارت‌های زیر می‌باشد؟",
+                options: [
+                    "Hyper text markup language",
+                    "Home tool markup language",
+                    "Hyperlink and text markup language",
+                    "Home text markup language"
+                ],
+                correct: 0
+            },
+            {
+                id: 2,
+                text: "کدام یک از شرکت‌های زیر مسئول ساخت استانداردهای وب هستند؟",
+                options: [
+                    "The world wide web consortium",
+                    "Google",
+                    "Microsoft",
+                    "Mozilla"
+                ],
+                correct: 0
+            },
+            {
+                id: 3,
+                text: "کدام یک از مجموعه تگ‌های زیر در نسخه جدید HTML5 اضافه شده است؟",
+                options: [
+                    "Header footer article",
+                    "Div footer header",
+                    "Header footer link",
+                    "Header footer class"
+                ],
+                correct: 0
+            },
+            {
+                id: 4,
+                text: "کدام یک از زبان‌های زیر برای طراحی فرانت اند (سمت کاربر) مناسب نمی‌باشد؟",
+                options: [
+                    "Php",
+                    "Css",
+                    "Html",
+                    "JavaScript"
+                ],
+                correct: 0
+            },
+            {
+                id: 5,
+                text: "کدام یک از گزینه‌های زیر نشان‌دهنده تگ HTML5 می‌باشد؟",
+                options: [
+                    "&lt;!Doctype html&gt;",
+                    "&lt;!doctype&gt;",
+                    "&lt;!doctype html5&gt;",
+                    'doctype html Public "-//w3c//dtd//en//html 5.0!&gt;'
+                ],
+                correct: 0
+            },
+            {
+                id: 6,
+                text: "کدام یک از گزینه‌های زیر نشان‌دهنده کامنت (Comment) در HTML5 می‌باشد؟",
+                options: [
+                    "&lt;&gt; Comment &lt;&gt;",
+                    "&lt;!&gt; Comment &lt;!&gt;",
+                    "&lt;!-- comment --&gt;",
+                    "&lt;Comment&gt;"
+                ],
+                correct: 2
+            },
+            {
+                id: 7,
+                text: "پروتکلی که وظیفه تبدیل اسم وبسایت به آی‌پی را دارد را ..... می‌گویند",
+                options: [
+                    "DHCP",
+                    "HTTP",
+                    "SMB",
+                    "DNS"
+                ],
+                correct: 3
+            },
+            {
+                id: 8,
+                text: "پروتکلی که از طریق آن می‌توان صفحات وب را دید ..... می‌گویند",
+                options: [
+                    "DHCP",
+                    "HTTPS",
+                    "SMB",
+                    "DNS"
+                ],
+                correct: 1
+            },
+            {
+                id: 9,
+                text: "کدام یک از جملات زیر صحیح نمی‌باشد؟",
+                options: [
+                    "برای ایجاد شدن کدهای HTML CSS نیاز به برنامه‌ای دارد که کدها را کامپایل کند",
+                    "برای اجرا شدن کدهای HTML CSS نیاز به برنامه‌ای دارد که کدها را تفسیر کند",
+                    "مرورگرها جزو برنامه‌های مفسری هستند",
+                    "در یک برنامه نوت‌پد ساده می‌توان HTML و CSS را نوشت"
+                ],
+                correct: 0,
+                rtl: true
+            },
+            {
+                id: 10,
+                text: "کدام یک از تگ‌های زیر برای ایجاد لیستی با شماره‌گذاری اعداد می‌باشد؟",
+                options: [
+                    "&lt;List&gt;",
+                    "&lt;Ol&gt;",
+                    "&lt;Ul&gt;",
+                    "&lt;Dl&gt;"
+                ],
+                correct: 1
+            },
+            {
+                id: 11,
+                text: "کدام یک از تگ‌های زیر لیستی با نماد bullet (دایره‌های توپر) نمایش می‌دهد؟",
+                options: [
+                    "&lt;Ul&gt;",
+                    "&lt;Dl&gt;",
+                    "&lt;List&gt;",
+                    "&lt;Ol&gt;"
+                ],
+                correct: 0
+            },
+            {
+                id: 12,
+                text: "کدام یک از دستورات زیر تمام تگ‌های p را bold می‌کند؟",
+                options: [
+                    "p{font-weight:bold;}",
+                    '&lt;P style="text-size:bold";&gt;',
+                    "P{text-size:bold;}",
+                    '&lt;P Style="font-size:bold";&gt;'
+                ],
+                correct: 0
+            },
+            {
+                id: 13,
+                text: "تگ‌های block level چه نوع تگ‌هایی هستند؟",
+                options: [
+                    "عرض این تگ‌ها به اندازه محتوای داخلی آن‌هاست مانند تگ a",
+                    "عرض این نوع تگ‌ها به اندازه عرض کل صفحه است مانند تگ P",
+                    "عرض این نوع تگ‌ها به اندازه محتوای آنهاست مانند تگ p",
+                    "عرض این نوع تگ‌ها به اندازه عرض صفحه است مانند تگ a"
+                ],
+                correct: 1,
+                rtl: true
+            },
+            {
+                id: 14,
+                text: "CSS مخفف چیست؟",
+                options: [
+                    "Colorsful style sheet",
+                    "Cascading style sheet",
+                    "Creative style sheet",
+                    "Computer style sheets"
+                ],
+                correct: 1
+            },
+            {
+                id: 15,
+                text: "اگر عکسی در هنگام اجرای وبسایت نمایش داده نشد، کدام خصوصیت برای نمایش جای عکس می‌باشد؟",
+                options: [
+                    "Title",
+                    "Alt",
+                    "Src",
+                    "Attrib"
+                ],
+                correct: 1
+            },
+            {
+                id: 16,
+                text: 'کدامیک از گزینه‌های زیر شرح درستی از تگ‌های زیر می‌باشد؟\n<code>Img src="workplace.jpg" alt="workplace" usemap="#workmap"</code>\n<code>Map name="workmap"</code>\n<code>Area shape="rect" coords="34,44,270,350" alt="Computer" href="Computer.html"</code>',
+                options: [
+                    "نقشه گوگل را روی صفحه وب اجرا می‌کند",
+                    "برای پیاده‌سازی قسمتی از نقشه به صورت عکس می‌باشد",
+                    "نمایش یک قسمت دایره‌ای شکل از عنوان تصویر به عنوان لینک برای کلیک کردن",
+                    "نمایش یک قسمت مستطیل شکل عنوان لینک برای کلیک کردن"
+                ],
+                correct: 3,
+                rtl: true
+            },
+            {
+                id: 17,
+                text: "در انتهای هر تگ کدام یک از کاراکترهای زیر قرار می‌گیرد؟",
+                options: [
+                    "*",
+                    "/",
+                    "&lt;",
+                    "^"
+                ],
+                correct: 1
+            },
+            {
+                id: 18,
+                text: "برای ایجاد hyperlink کدام یک از تگ‌های زیر مناسب می‌باشد؟",
+                options: [
+                    '&lt;a&gt; https://www.w3schools.com&lt;/a&gt;',
+                    '&lt;a name="https://www.w3schools.com"&gt;w3school.com&lt;/a&gt;',
+                    '&lt;a href="https://www.w3schools.com"&gt;w3schools&lt;/a&gt;',
+                    '&lt;a url="https://www.w3schools.com"&gt;w3schools.com&lt;/a&gt;'
+                ],
+                correct: 2
+            },
+            {
+                id: 19,
+                text: "کدام یک از تگ‌های زیر برای عنوان ستون و کدام برای ردیف جدول می‌باشد؟",
+                options: [
+                    "Th , Tr",
+                    "Td , Tr",
+                    "Td , Th",
+                    "Theater , Trow"
+                ],
+                correct: 0
+            },
+            {
+                id: 20,
+                text: 'کدامیک از جملات زیر برای تگ‌های زیر اشتباه می‌باشد؟\n<code>&lt;Table style="width:100%"&gt;</code>\n<code>&lt;Caption&gt; monthly savings&lt;/Caption&gt;</code>\n<code>&lt;Tr&gt;</code>',
+                options: [
+                    "عرض جدول ۱۰۰ درصد می‌باشد",
+                    "هر ستون یک عنوان دارد",
+                    "جدول دارای عنوان می‌باشد",
+                    "این جدول سه سطر دارد"
+                ],
+                correct: 3,
+                rtl: true
+            },
+            {
+                id: 21,
+                text: "کدام یک از تگ‌های زیر باعث ایجاد checkbox می‌شود؟",
+                options: [
+                    "&lt;Check&gt;",
+                    '&lt;Input type="check"&gt;',
+                    '&lt;Input type="checkbox"&gt;',
+                    "&lt;Checkbox&gt;"
+                ],
+                correct: 2
+            },
+            {
+                id: 22,
+                text: "کدام یک از تگ‌های زیر برای ورود متن در HTML می‌باشد؟",
+                options: [
+                    "&lt;Textfield&gt;",
+                    '&lt;Textinput type="text"&gt;',
+                    '&lt;Input type="text"&gt;',
+                    '&lt;Input type="textfield"&gt;'
+                ],
+                correct: 2
+            },
+            {
+                id: 23,
+                text: 'کدامیک از گزینه‌های زیر شرح درستی از تگ‌های زیر می‌باشد؟\n<code>Img src="workplace.jpg" alt="workplace" usemap="#workmap"</code>\n<code>Map name="workmap"</code>\n<code>Area shape="rect" coords="34,44,270,350" alt="Computer" href="Computer.html"</code>',
+                options: [
+                    "نقشه گوگل را روی صفحه وب اجرا می‌کند",
+                    "برای پیاده‌سازی قسمتی از نقشه به صورت عکس می‌باشد",
+                    "نمایش یک قسمت دایره‌ای شکل از عنوان لینک برای کلیک کردن",
+                    "نمایش یک قسمت مستطیل شکل عنوان لینک برای کلیک کردن"
+                ],
+                correct: 3,
+                rtl: true
+            },
+            {
+                id: 24,
+                text: "برای تعیین شفافیت عکس‌ها از کدام دستور استفاده می‌شود؟",
+                options: [
+                    "Opacity",
+                    "Hide",
+                    "Show",
+                    "Imageopacity"
+                ],
+                correct: 0
+            },
+            {
+                id: 25,
+                text: "کدام یک از تگ‌های زیر برای internal CSS می‌باشد؟",
+                options: [
+                    "&lt;Script&gt;",
+                    "&lt;Css&gt;",
+                    "&lt;Style&gt;",
+                    "&lt;Link&gt;"
+                ],
+                correct: 2
+            },
+            {
+                id: 26,
+                text: "کدامیک از دستورات CSS زیر درست می‌باشد؟",
+                options: [
+                    "{; body:color=black}",
+                    ";body:color=black",
+                    "{;body;color:black}",
+                    "Body{color:black;}"
+                ],
+                correct: 3
+            },
+            {
+                id: 27,
+                text: "برای اینکه گروهی از تگ‌ها را انتخاب کنیم کدام گزینه صحیح می‌باشد؟",
+                options: [
+                    "بین هر تگ علامت ,",
+                    "بین هر تگ علامت +",
+                    "بین هر تگ فاصله",
+                    "بین هر تگ بدون فاصله"
+                ],
+                correct: 0,
+                rtl: true
+            },
+            {
+                id: 28,
+                text: "برای انتخاب تمام تگ‌های p که درون div هستند کدام گزینه درست می‌باشد؟",
+                options: [
+                    "Div p",
+                    "Div p.",
+                    "Div + p",
+                    "Div .p"
+                ],
+                correct: 0
+            },
+            {
+                id: 29,
+                text: "کدام یک از دستورات زیر نشان‌دهنده تغییر رنگ پس‌زمینه در CSS می‌باشد؟",
+                options: [
+                    "Bg color",
+                    "Color",
+                    "Background-color",
+                    "Backgroundcolor"
+                ],
+                correct: 2
+            },
+            {
+                id: 30,
+                text: "کدامیک از تگ‌های زیر در CSS عکس به محتوا اضافه می‌کند؟",
+                options: [
+                    '&lt;img src="A.jpg"&gt;',
+                    "Background-image=url('A.jpg')",
+                    '&lt;Img href="A.jpg"&gt;',
+                    "Background-image = A.jpg"
+                ],
+                correct: 0
+            },
+            {
+                id: 31,
+                text: "برای تغییر نوع فونت یا نوع قلم از کدام دستور زیر استفاده می‌شود؟",
+                options: [
+                    "font-style",
+                    "font-family",
+                    "font-size",
+                    "font-weight"
+                ],
+                correct: 1
+            },
+            {
+                id: 32,
+                text: "در CSS برای bold کردن متن از کدام دستور استفاده می‌شود؟",
+                options: [
+                    "Font-style",
+                    "Font-size",
+                    "Font-family",
+                    "Font-weight"
+                ],
+                correct: 3
+            },
+            {
+                id: 33,
+                text: "برای تغییر نماد لیست‌های غیرتزئینی از کدام دستور استفاده می‌شود؟",
+                options: [
+                    "List-style-type",
+                    "List-style-position",
+                    "List-style-image",
+                    "Style-mark"
+                ],
+                correct: 0
+            },
+            {
+                id: 34,
+                text: "برای ایجاد عکس به جای نماد در لیست‌ها از کدام دستور استفاده می‌شود؟",
+                options: [
+                    "List-style-type",
+                    "List-style-position",
+                    "List-style-image",
+                    "Style-mark"
+                ],
+                correct: 2
+            },
+            {
+                id: 35,
+                text: "کدام یک از جملات زیر در مورد دستور زیر صحیح می‌باشد؟\nMargin: 12px 24px;",
+                options: [
+                    "ایجاد حاشیه بیرونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+                    "ایجاد حاشیه بیرونی از چپ و راست ۱۲ پیکسل و از بالا و پایین ۲۴ پیکسل",
+                    "ایجاد حاشیه بیرونی از بالا و راست ۱۲ پیکسل و از پایین چپ ۲۴ پیکسل",
+                    "ایجاد حاشیه بیرونی از بالا و چپ ۱۲ پیکسل و از راست و پایین ۲۴ پیکسل"
+                ],
+                correct: 0,
+                rtl: true
+            },
+            {
+                id: 36,
+                text: "کدام یک از جملات زیر در مورد دستور زیر صحیح می‌باشد؟\nPadding: 12px 24px;",
+                options: [
+                    "ایجاد حاشیه درونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+                    "ایجاد حاشیه درونی از چپ و راست ۱۲ پیکسل و از بالا و پایین ۲۴ پیکسل",
+                    "ایجاد حاشیه درونی از بالا و راست ۱۲ پیکسل و از پایین چپ ۲۴ پیکسل",
+                    "ایجاد حاشیه درونی از بالا و چپ ۱۲ پیکسل و از راست و پایین ۲۴ پیکسل"
+                ],
+                correct: 0,
+                rtl: true
+            },
+            {
+                id: 37,
+                text: "کدام دستور برای تعیین فاصله بین خطوط می‌باشد؟",
+                options: [
+                    "letter-spacing",
+                    "line-height",
+                    "word-spacing",
+                    "text-align"
+                ],
+                correct: 1
+            },
+            {
+                id: 38,
+                text: "کدام دستور برای فاصله بین حروف می‌باشد؟",
+                options: [
+                    "letter-spacing",
+                    "line-height",
+                    "word-spacing",
+                    "text-align"
+                ],
+                correct: 0
+            },
+            {
+                id: 39,
+                text: "کدام یک از تگ‌های زیر برای ایجاد خط جدید یا شکستن متن مناسب می‌باشد؟",
+                options: [
+                    "&lt;Bl&gt;",
+                    "&lt;Break&gt;",
+                    "&lt;Br&gt;",
+                    "&lt;B&gt;"
+                ],
+                correct: 2
+            },
+            {
+                id: 40,
+                text: "کدام یک از تگ‌های زیر برای نمایش عنوان صفحه وب استفاده می‌شود؟",
+                options: [
+                    "&lt;Title&gt;",
+                    "&lt;Meta&gt;",
+                    "&lt;Head&gt;",
+                    "&lt;Html&gt;"
+                ],
+                correct: 0
+            }
+        ];
+
+        const letters = ['الف', 'ب', 'ج', 'د'];
+        const container = document.getElementById('quizContainer');
+        let userAnswers = {};
+
+        function renderQuiz() {
+            let html = '';
+            questions.forEach((q, idx) => {
+                html += `<div class="question-card" id="q${q.id}">
+                    <div class="question-text">
+                        <span class="question-number">${q.id}</span>
+                        <span class="q-content">${q.text.replace(/\n/g, '<br>').replace(/<code>/g, '<span class="code-block">').replace(/<\/code>/g, '</span>')}</span>
+                    </div>
+                    <ul class="options">`;
+                q.options.forEach((opt, optIdx) => {
+                    const isRtl = q.rtl ? 'option-text-rtl' : 'option-text';
+                    html += `<li onclick="selectOption(${q.id}, ${optIdx}, this)" data-q="${q.id}" data-opt="${optIdx}">
+                        <span class="option-letter">${letters[optIdx]}</span>
+                        <span class="${isRtl}">${opt}</span>
+                    </li>`;
+                });
+                html += `</ul></div>`;
+            });
+
+            html += `<div class="btn-container">
+                <button class="btn btn-submit" onclick="submitQuiz()">✅ ثبت و بررسی پاسخ‌ها</button>
+                <button class="btn btn-reset" onclick="resetQuiz()">🔄 شروع مجدد</button>
+                <a href="answers.html" class="btn btn-answers">📋 مشاهده پاسخنامه</a>
+                <button class="btn btn-pdf" id="pdfBtn" onclick="downloadPDF()">📥 دانلود PDF سوالات و جواب‌ها</button>
+            </div>
+            <div class="result-box" id="resultBox">
+                <div class="result-score" id="resultScore"></div>
+                <div class="result-text" id="resultText"></div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            </div>`;
+
+            container.innerHTML = html;
+        }
+
+        function selectOption(qId, optIdx, el) {
+            const siblings = document.querySelectorAll(`li[data-q="${qId}"]`);
+            siblings.forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+            userAnswers[qId] = optIdx;
+            updateStats();
+        }
+
+        function updateStats() {
+            const count = Object.keys(userAnswers).length;
+            document.getElementById('answeredCount').textContent = toPersianNum(count);
+            const pct = Math.round((count / 40) * 100);
+            document.getElementById('progressPercent').textContent = toPersianNum(pct) + '٪';
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            questions.forEach(q => {
+                const items = document.querySelectorAll(`li[data-q="${q.id}"]`);
+                items.forEach((item, idx) => {
+                    item.onclick = null;
+                    if (idx === q.correct) {
+                        item.classList.add('correct');
+                    }
+                    if (userAnswers[q.id] === idx && idx !== q.correct) {
+                        item.classList.add('wrong');
+                    }
+                });
+                if (userAnswers[q.id] === q.correct) correct++;
+            });
+
+            const pct = Math.round((correct / 40) * 100);
+            const resultBox = document.getElementById('resultBox');
+            document.getElementById('resultScore').textContent = toPersianNum(correct) + ' از ۴۰';
+            
+            let msg = '';
+            if (pct >= 90) msg = '🌟 عالی! شما واقعاً حرفه‌ای هستید!';
+            else if (pct >= 70) msg = '👏 خیلی خوب! عملکرد خوبی داشتید.';
+            else if (pct >= 50) msg = '📚 متوسط. نیاز به مطالعه بیشتر دارید.';
+            else msg = '💪 تلاش بیشتری لازم است. دوباره مطالعه کنید.';
+            
+            document.getElementById('resultText').textContent = msg + ` (${toPersianNum(pct)}٪)`;
+            document.getElementById('progressFill').style.width = pct + '%';
+            resultBox.classList.add('show');
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            document.querySelectorAll('.options li').forEach(li => {
+                li.classList.remove('selected', 'correct', 'wrong');
+            });
+            document.getElementById('resultBox').classList.remove('show');
+            updateStats();
+            renderQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toPersianNum(num) {
+            const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+
+        function downloadPDF() {
+            const btn = document.getElementById('pdfBtn');
+            const overlay = document.getElementById('loadingOverlay');
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال ساخت...';
+            overlay.classList.add('show');
+
+            const pdfContent = document.createElement('div');
+            pdfContent.style.direction = 'rtl';
+            pdfContent.style.fontFamily = 'Vazirmatn, Tahoma, Arial, sans-serif';
+            pdfContent.style.padding = '20px';
+            pdfContent.style.color = '#333';
+            pdfContent.style.background = '#fff';
+            pdfContent.style.lineHeight = '2';
+
+            const correctLetters = ['الف','الف','الف','الف','الف','ج','د','ب','الف','ب','الف','الف','ب','ب','ب','د','ب','ج','الف','د','ج','ج','د','الف','ج','د','الف','الف','ج','الف','ب','د','الف','ج','الف','الف','ب','الف','ج','الف'];
+
+            let pdfHTML = `
+                <div style="text-align:center; padding:20px 0 30px; border-bottom:3px solid #667eea; margin-bottom:25px;">
+                    <h1 style="color:#4338ca; font-size:1.8em; margin-bottom:8px;">🎓 آزمون جامع HTML و CSS</h1>
+                    <p style="color:#666; font-size:0.95em;">۴۰ سوال تستی با پاسخ صحیح مشخص شده</p>
+                </div>`;
+
+            questions.forEach((q, idx) => {
+                pdfHTML += `
+                <div style="border:1px solid #e5e7eb; border-radius:10px; padding:14px 18px; margin-bottom:12px; page-break-inside:avoid; border-right:4px solid #667eea; background:#fafafa;">
+                    <div style="font-weight:700; color:#374151; font-size:0.92em; margin-bottom:10px;">
+                        <span style="display:inline-block; background:linear-gradient(135deg,#667eea,#764ba2); color:white; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; font-weight:900; font-size:0.85em; margin-left:8px;">${q.id}</span>
+                        ${q.text.replace(/\n/g, '<br>').replace(/<code>/g, '<span style="direction:ltr;display:inline-block;background:#f3f4f6;padding:2px 8px;border-radius:4px;font-family:monospace;font-size:0.9em;color:#6366f1;">').replace(/<\/code>/g, '</span>')}
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">`;
+                
+                const optLabels = ['الف', 'ب', 'ج', 'د'];
+                q.options.forEach((opt, optIdx) => {
+                    const isCorrect = optIdx === q.correct;
+                    const bgColor = isCorrect ? '#f0fdf4' : '#fff';
+                    const borderColor = isCorrect ? '#22c55e' : '#e5e7eb';
+                    const textColor = isCorrect ? '#166534' : '#374151';
+                    const icon = isCorrect ? ' ✅' : '';
+                    pdfHTML += `<div style="border:1px solid ${borderColor}; border-radius:6px; padding:5px 10px; background:${bgColor}; font-size:0.82em; color:${textColor}; font-weight:${isCorrect?'700':'400'};">
+                        <span style="font-weight:700;">${optLabels[optIdx]})</span> ${opt}${icon}
+                    </div>`;
+                });
+
+                pdfHTML += `</div>
+                    <div style="margin-top:6px; font-size:0.78em; color:#166534; font-weight:700;">
+                        ✅ پاسخ صحیح: گزینه ${correctLetters[idx]}
+                    </div>
+                </div>`;
+            });
+
+            pdfHTML += `<div style="text-align:center; margin-top:30px; padding:15px; border-top:2px solid #e5e7eb; color:#9ca3af; font-size:0.8em;">آزمون جامع HTML و CSS - سوالات و پاسخ‌ها</div>`;
+
+            pdfContent.innerHTML = pdfHTML;
+            document.body.appendChild(pdfContent);
+
+            const opt = {
+                margin: [8, 8, 8, 8],
+                filename: 'آزمون-HTML-CSS-سوالات-و-جوابها.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(pdfContent).save().then(() => {
+                document.body.removeChild(pdfContent);
+                btn.disabled = false;
+                btn.textContent = '📥 دانلود PDF سوالات و جواب‌ها';
+                overlay.classList.remove('show');
+            }).catch(err => {
+                console.error(err);
+                document.body.removeChild(pdfContent);
+                btn.disabled = false;
+                btn.textContent = '📥 دانلود PDF سوالات و جواب‌ها';
+                overlay.classList.remove('show');
+                alert('خطا در ساخت PDF. لطفاً دوباره تلاش کنید.');
+            });
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>

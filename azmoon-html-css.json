@@ -1,0 +1,522 @@
+[
+    {
+        "text": "Html مخفف کدام یک از عبارت‌های زیر می‌باشد؟",
+        "options": [
+            "Hyper text markup language",
+            "Home tool markup language",
+            "Hyperlink and text markup language",
+            "Home text markup language"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از شرکت‌های زیر مسئول ساخت استانداردهای وب هستند؟",
+        "options": [
+            "The world wide web consortium",
+            "Google",
+            "Microsoft",
+            "Mozilla"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از مجموعه تگ‌های زیر در نسخه جدید HTML5 اضافه شده است؟",
+        "options": [
+            "Header footer article",
+            "Div footer header",
+            "Header footer link",
+            "Header footer class"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از زبان‌های زیر برای طراحی فرانت اند (سمت کاربر) مناسب نمی‌باشد؟",
+        "options": [
+            "Php",
+            "Css",
+            "Html",
+            "JavaScript"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از گزینه‌های زیر نشان‌دهنده تگ HTML5 می‌باشد؟",
+        "options": [
+            "<!Doctype html>",
+            "<!doctype>",
+            "<!doctype html5>",
+            "doctype html Public \"-//w3c//dtd//en//html 5.0!>"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از گزینه‌های زیر نشان‌دهنده کامنت (Comment) در HTML5 می‌باشد؟",
+        "options": [
+            "<> Comment <>",
+            "<!> Comment <!>",
+            "<!-- comment -->",
+            "<Comment>"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "پروتکلی که وظیفه تبدیل اسم وبسایت به آی‌پی را دارد را ..... می‌گویند",
+        "options": [
+            "DHCP",
+            "HTTP",
+            "SMB",
+            "DNS"
+        ],
+        "correct_index": 3,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "پروتکلی که از طریق آن می‌توان صفحات وب را دید ..... می‌گویند",
+        "options": [
+            "DHCP",
+            "HTTPS",
+            "SMB",
+            "DNS"
+        ],
+        "correct_index": 1,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از جملات زیر صحیح نمی‌باشد؟",
+        "options": [
+            "برای ایجاد شدن کدهای HTML CSS نیاز به برنامه‌ای دارد که کدها را کامپایل کند",
+            "برای اجرا شدن کدهای HTML CSS نیاز به برنامه‌ای دارد که کدها را تفسیر کند",
+            "مرورگرها جزو برنامه‌های مفسری هستند",
+            "در یک برنامه نوت‌پد ساده می‌توان HTML و CSS را نوشت"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای ایجاد لیستی با شماره‌گذاری اعداد می‌باشد؟",
+        "options": [
+            "<List>",
+            "<Ol>",
+            "<Ul>",
+            "<Dl>"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر لیستی با نماد bullet (دایره‌های توپر) نمایش می‌دهد؟",
+        "options": [
+            "<Ul>",
+            "<Dl>",
+            "<List>",
+            "<Ol>"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از دستورات زیر تمام تگ‌های p را bold می‌کند؟",
+        "options": [
+            "p{font-weight:bold;}",
+            "<P style=\"text-size:bold\";>",
+            "P{text-size:bold;}",
+            "<P Style=\"font-size:bold\";>"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "تگ‌های block level چه نوع تگ‌هایی هستند؟",
+        "options": [
+            "عرض این تگ‌ها به اندازه محتوای داخلی آن‌هاست مانند تگ a",
+            "عرض این نوع تگ‌ها به اندازه عرض کل صفحه است مانند تگ P",
+            "عرض این نوع تگ‌ها به اندازه محتوای آنهاست مانند تگ p",
+            "عرض این نوع تگ‌ها به اندازه عرض صفحه است مانند تگ a"
+        ],
+        "correct_index": 1,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "CSS مخفف چیست؟",
+        "options": [
+            "Colorsful style sheet",
+            "Cascading style sheet",
+            "Creative style sheet",
+            "Computer style sheets"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "اگر عکسی در هنگام اجرای وبسایت نمایش داده نشد، کدام خصوصیت برای نمایش جای عکس می‌باشد؟",
+        "options": [
+            "Title",
+            "Alt",
+            "Src",
+            "Attrib"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدامیک از گزینه‌های زیر شرح درستی از تگ‌های زیر می‌باشد؟\nImg src=\"workplace.jpg\" alt=\"workplace\" usemap=\"#workmap\"\nMap name=\"workmap\"\nArea shape=\"rect\" coords=\"34,44,270,350\" alt=\"Computer\" href=\"Computer.html\"",
+        "options": [
+            "نقشه گوگل را روی صفحه وب اجرا می‌کند",
+            "برای پیاده‌سازی قسمتی از نقشه به صورت عکس می‌باشد",
+            "نمایش یک قسمت دایره‌ای شکل از عنوان تصویر به عنوان لینک برای کلیک کردن",
+            "نمایش یک قسمت مستطیل شکل عنوان لینک برای کلیک کردن"
+        ],
+        "correct_index": 3,
+        "difficulty": "hard",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "در انتهای هر تگ کدام یک از کاراکترهای زیر قرار می‌گیرد؟",
+        "options": [
+            "*",
+            "/",
+            "<",
+            "^"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای ایجاد hyperlink کدام یک از تگ‌های زیر مناسب می‌باشد؟",
+        "options": [
+            "<a> https://www.w3schools.com</a>",
+            "<a name=\"https://www.w3schools.com\">w3school.com</a>",
+            "<a href=\"https://www.w3schools.com\">w3schools</a>",
+            "<a url=\"https://www.w3schools.com\">w3schools.com</a>"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای عنوان ستون و کدام برای ردیف جدول می‌باشد؟",
+        "options": [
+            "Th , Tr",
+            "Td , Tr",
+            "Td , Th",
+            "Theater , Trow"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدامیک از جملات زیر برای تگ‌های زیر اشتباه می‌باشد؟\n<Table style=\"width:100%\">\n<Caption> monthly savings</Caption>\n<Tr>",
+        "options": [
+            "عرض جدول ۱۰۰ درصد می‌باشد",
+            "هر ستون یک عنوان دارد",
+            "جدول دارای عنوان می‌باشد",
+            "این جدول سه سطر دارد"
+        ],
+        "correct_index": 3,
+        "difficulty": "hard",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر باعث ایجاد checkbox می‌شود؟",
+        "options": [
+            "<Check>",
+            "<Input type=\"check\">",
+            "<Input type=\"checkbox\">",
+            "<Checkbox>"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای ورود متن در HTML می‌باشد؟",
+        "options": [
+            "<Textfield>",
+            "<Textinput type=\"text\">",
+            "<Input type=\"text\">",
+            "<Input type=\"textfield\">"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدامیک از گزینه‌های زیر شرح درستی از تگ‌های زیر می‌باشد؟\nImg src=\"workplace.jpg\" alt=\"workplace\" usemap=\"#workmap\"\nMap name=\"workmap\"\nArea shape=\"rect\" coords=\"34,44,270,350\" alt=\"Computer\" href=\"Computer.html\"",
+        "options": [
+            "نقشه گوگل را روی صفحه وب اجرا می‌کند",
+            "برای پیاده‌سازی قسمتی از نقشه به صورت عکس می‌باشد",
+            "نمایش یک قسمت دایره‌ای شکل از عنوان لینک برای کلیک کردن",
+            "نمایش یک قسمت مستطیل شکل عنوان لینک برای کلیک کردن"
+        ],
+        "correct_index": 3,
+        "difficulty": "hard",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای تعیین شفافیت عکس‌ها از کدام دستور استفاده می‌شود؟",
+        "options": [
+            "Opacity",
+            "Hide",
+            "Show",
+            "Imageopacity"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای internal CSS می‌باشد؟",
+        "options": [
+            "<Script>",
+            "<Css>",
+            "<Style>",
+            "<Link>"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدامیک از دستورات CSS زیر درست می‌باشد؟",
+        "options": [
+            "{; body:color=black}",
+            ";body:color=black",
+            "{;body;color:black}",
+            "Body{color:black;}"
+        ],
+        "correct_index": 3,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای اینکه گروهی از تگ‌ها را انتخاب کنیم کدام گزینه صحیح می‌باشد؟",
+        "options": [
+            "بین هر تگ علامت ,",
+            "بین هر تگ علامت +",
+            "بین هر تگ فاصله",
+            "بین هر تگ بدون فاصله"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای انتخاب تمام تگ‌های p که درون div هستند کدام گزینه درست می‌باشد؟",
+        "options": [
+            "Div p",
+            "Div p.",
+            "Div + p",
+            "Div .p"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از دستورات زیر نشان‌دهنده تغییر رنگ پس‌زمینه در CSS می‌باشد؟",
+        "options": [
+            "Bg color",
+            "Color",
+            "Background-color",
+            "Backgroundcolor"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدامیک از تگ‌های زیر در CSS عکس به محتوا اضافه می‌کند؟",
+        "options": [
+            "<img src=\"A.jpg\">",
+            "Background-image=url('A.jpg')",
+            "<Img href=\"A.jpg\">",
+            "Background-image = A.jpg"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای تغییر نوع فونت یا نوع قلم از کدام دستور زیر استفاده می‌شود؟",
+        "options": [
+            "font-style",
+            "font-family",
+            "font-size",
+            "font-weight"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "در CSS برای bold کردن متن از کدام دستور استفاده می‌شود؟",
+        "options": [
+            "Font-style",
+            "Font-size",
+            "Font-family",
+            "Font-weight"
+        ],
+        "correct_index": 3,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای تغییر نماد لیست‌های غیرتزئینی از کدام دستور استفاده می‌شود؟",
+        "options": [
+            "List-style-type",
+            "List-style-position",
+            "List-style-image",
+            "Style-mark"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "برای ایجاد عکس به جای نماد در لیست‌ها از کدام دستور استفاده می‌شود؟",
+        "options": [
+            "List-style-type",
+            "List-style-position",
+            "List-style-image",
+            "Style-mark"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از جملات زیر در مورد دستور زیر صحیح می‌باشد؟\nMargin: 12px 24px;",
+        "options": [
+            "ایجاد حاشیه بیرونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+            "ایجاد حاشیه بیرونی از چپ و راست ۱۲ پیکسل و از بالا و پایین ۲۴ پیکسل",
+            "ایجاد حاشیه بیرونی از بالا و راست ۱۲ پیکسل و از پایین چپ ۲۴ پیکسل",
+            "ایجاد حاشیه بیرونی از بالا و چپ ۱۲ پیکسل و از راست و پایین ۲۴ پیکسل"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از جملات زیر در مورد دستور زیر صحیح می‌باشد؟\nPadding: 12px 24px;",
+        "options": [
+            "ایجاد حاشیه درونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+            "ایجاد حاشیه درونی از چپ و راست ۱۲ پیکسل و از بالا و پایین ۲۴ پیکسل",
+            "ایجاد حاشیه درونی از بالا و راست ۱۲ پیکسل و از پایین چپ ۲۴ پیکسل",
+            "ایجاد حاشیه درونی از بالا و چپ ۱۲ پیکسل و از راست و پایین ۲۴ پیکسل"
+        ],
+        "correct_index": 0,
+        "difficulty": "medium",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام دستور برای تعیین فاصله بین خطوط می‌باشد؟",
+        "options": [
+            "letter-spacing",
+            "line-height",
+            "word-spacing",
+            "text-align"
+        ],
+        "correct_index": 1,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام دستور برای فاصله بین حروف می‌باشد؟",
+        "options": [
+            "letter-spacing",
+            "line-height",
+            "word-spacing",
+            "text-align"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای ایجاد خط جدید یا شکستن متن مناسب می‌باشد؟",
+        "options": [
+            "<Bl>",
+            "<Break>",
+            "<Br>",
+            "<B>"
+        ],
+        "correct_index": 2,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    },
+    {
+        "text": "کدام یک از تگ‌های زیر برای نمایش عنوان صفحه وب استفاده می‌شود؟",
+        "options": [
+            "<Title>",
+            "<Meta>",
+            "<Head>",
+            "<Html>"
+        ],
+        "correct_index": 0,
+        "difficulty": "easy",
+        "points": 1,
+        "negative_points": 0
+    }
+]

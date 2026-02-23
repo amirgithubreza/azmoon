@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پاسخنامه آزمون HTML و CSS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #0a1628, #1a2744, #0d1f3c);
+            color: #e0e0e0;
+            min-height: 100vh;
+            direction: rtl;
+            line-height: 2;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.85);
+            margin-top: 5px;
+            font-size: 1em;
+        }
+
+        .back-btn-container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-family: 'Vazirmatn', Tahoma;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px 60px;
+        }
+
+        .answer-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(34,197,94,0.3);
+            border-radius: 16px;
+            padding: 22px 25px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .answer-card:hover {
+            background: rgba(34,197,94,0.08);
+            transform: translateX(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .q-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 1em;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .answer-content {
+            flex: 1;
+        }
+
+        .q-title {
+            font-weight: 700;
+            color: #d1d5db;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .correct-answer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34,197,94,0.15);
+            border: 1px solid rgba(34,197,94,0.4);
+            border-radius: 10px;
+            padding: 8px 16px;
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 0.95em;
+            flex-wrap: wrap;
+        }
+
+        .correct-answer .check-icon {
+            font-size: 1.2em;
+        }
+
+        .answer-text {
+            unicode-bidi: plaintext;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            padding: 12px 18px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            border-right: 4px solid #3b82f6;
+            color: #93c5fd;
+            font-size: 0.9em;
+            line-height: 2.2;
+        }
+
+        .explanation strong {
+            color: #60a5fa;
+        }
+
+        .explanation .tip {
+            display: block;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #fbbf24;
+            font-size: 0.92em;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(22,163,74,0.15));
+            border: 2px solid rgba(34,197,94,0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .summary-box h2 {
+            color: #4ade80;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 10px;
+            padding: 8px 4px;
+            text-align: center;
+        }
+
+        .summary-item .s-num {
+            font-weight: 800;
+            color: #4ade80;
+            font-size: 0.9em;
+        }
+
+        .summary-item .s-ans {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.85em;
+            margin-top: 2px;
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .section-divider span {
+            background: #0d1f3c;
+            padding: 0 20px;
+            position: relative;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 35px;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Vazirmatn', Tahoma;
+            font-weight: 700;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 4px 15px rgba(245,158,11,0.4);
+        }
+
+        .pdf-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 15px rgba(239,68,68,0.4);
+        }
+
+        .pdf-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255,255,255,0.2);
+            border-top-color: #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        @media print {
+            body { background: white; color: #333; }
+            .header { background: #22c55e !important; position: static; }
+            .back-btn-container { display: none; }
+            .answer-card { break-inside: avoid; border-color: #ccc; background: #f9f9f9; }
+            .answer-card::before { background: #22c55e; }
+            .answer-card:hover { transform: none; }
+            .correct-answer { border-color: #22c55e; color: #166534; }
+            .explanation { color: #1e40af; border-right-color: #3b82f6; }
+            .explanation .tip { color: #92400e; }
+            .q-title { color: #333; }
+            .action-btn { display: none !important; }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.4em; }
+            .container { padding: 0 12px 40px; }
+            .answer-card { padding: 15px; }
+            .summary-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); }
+            .action-btn { padding: 10px 20px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">در حال ساخت فایل PDF...</div>
+    </div>
+
+    <div class="header">
+        <h1>📋 پاسخنامه آزمون HTML و CSS</h1>
+        <p>پاسخ صحیح ۴۰ سوال تستی با توضیحات کامل</p>
+    </div>
+
+    <div class="back-btn-container">
+        <a href="index.html" class="action-btn back-btn">🎓 بازگشت به آزمون</a>
+        <button class="action-btn print-btn" onclick="window.print()">🖨️ چاپ پاسخنامه</button>
+        <button class="action-btn pdf-btn" id="pdfBtn" onclick="downloadPDF()">📥 دانلود PDF</button>
+    </div>
+
+    <div class="container" id="mainContainer">
+
+        <div class="summary-box">
+            <h2>📊 جدول سریع پاسخ‌ها</h2>
+            <p style="color:#9ca3af; font-size:0.9em;">شماره سوال و گزینه صحیح</p>
+            <div class="summary-grid" id="summaryGrid"></div>
+        </div>
+
+        <div class="section-divider"><span>پاسخ‌های تشریحی با توضیحات ساده</span></div>
+
+        <div id="answersContainer"></div>
+    </div>
+
+    <script>
+        const answers = [
+            {
+                id: 1,
+                question: "Html مخفف کدام یک از عبارت‌های زیر می‌باشد؟",
+                answer: "Hyper Text Markup Language",
+                letter: "الف",
+                explanation: "HTML یعنی <strong>زبان نشانه‌گذاری ابرمتن</strong>. به زبان ساده، HTML زبانی است که با آن ساختار صفحات وب را می‌سازیم. مثلاً مشخص می‌کنیم کجا عنوان باشد، کجا عکس باشد، کجا متن باشد. کلمه Hyper Text یعنی متنی که می‌تواند لینک داشته باشد و به صفحات دیگر برود. کلمه Markup یعنی نشانه‌گذاری، یعنی با تگ‌ها مشخص می‌کنیم هر چیزی چیست.",
+                tip: "🎯 نکته: HTML یک زبان برنامه‌نویسی نیست! فقط زبان نشانه‌گذاری است."
+            },
+            {
+                id: 2,
+                question: "کدام یک از شرکت‌های زیر مسئول ساخت استانداردهای وب هستند؟",
+                answer: "The World Wide Web Consortium (W3C)",
+                letter: "الف",
+                explanation: "<strong>W3C</strong> یک سازمان بین‌المللی است که قوانین و استانداردهای وب را تعیین می‌کند. مثلاً مشخص می‌کند HTML چه تگ‌هایی داشته باشد یا CSS چطور کار کند. این سازمان را آقای <strong>تیم برنرز لی</strong> (مخترع وب) تأسیس کرده. گوگل، مایکروسافت و موزیلا فقط مرورگر می‌سازند، نه استاندارد.",
+                tip: "🎯 نکته: W3C مخفف World Wide Web Consortium است."
+            },
+            {
+                id: 3,
+                question: "کدام مجموعه تگ در HTML5 اضافه شده است؟",
+                answer: "Header, Footer, Article",
+                letter: "الف",
+                explanation: "در نسخه جدید HTML5 تگ‌های <strong>معنایی</strong> (Semantic) اضافه شدند. تگ <strong>header</strong> یعنی سربرگ صفحه، <strong>footer</strong> یعنی پاورقی صفحه، و <strong>article</strong> یعنی یک مقاله یا مطلب مستقل. این تگ‌ها به مرورگر و موتورهای جستجو کمک می‌کنند بفهمند هر قسمت صفحه چه نقشی دارد. تگ‌های div و link از قبل وجود داشتند و class اصلاً تگ نیست.",
+                tip: "🎯 نکته: تگ‌های معنایی HTML5 شامل header، footer، article، section، nav، aside و main هستند."
+            },
+            {
+                id: 4,
+                question: "کدام زبان برای فرانت‌اند مناسب نیست؟",
+                answer: "PHP",
+                letter: "الف",
+                explanation: "<strong>فرانت‌اند</strong> یعنی بخشی از وبسایت که کاربر می‌بیند (سمت کاربر). زبان‌های HTML، CSS و JavaScript همگی در مرورگر کاربر اجرا می‌شوند پس فرانت‌اند هستند. اما <strong>PHP</strong> یک زبان <strong>سمت سرور</strong> (بک‌اند) است، یعنی روی کامپیوتر سرور اجرا می‌شود و کاربر کد آن را نمی‌بیند. مثلاً PHP اطلاعات را از دیتابیس می‌خواند.",
+                tip: "🎯 نکته: فرانت‌اند = سمت کاربر (مرورگر) | بک‌اند = سمت سرور"
+            },
+            {
+                id: 5,
+                question: "تگ HTML5 کدام است؟",
+                answer: "<!Doctype html>",
+                letter: "الف",
+                explanation: "هر فایل HTML باید در خط اول مشخص کند از چه نسخه‌ای استفاده می‌کند. در HTML5 این کار خیلی ساده شده و فقط می‌نویسیم <strong>&lt;!DOCTYPE html&gt;</strong>. در نسخه‌های قبلی این کد خیلی طولانی و پیچیده بود. این تگ به مرورگر می‌گوید: «این صفحه با HTML5 نوشته شده، لطفاً طبق قوانین HTML5 نمایشش بده».",
+                tip: "🎯 نکته: DOCTYPE باید اولین خط فایل HTML باشد، حتی قبل از تگ <html>."
+            },
+            {
+                id: 6,
+                question: "کامنت در HTML5 چگونه نوشته می‌شود؟",
+                answer: "&lt;!-- comment --&gt;",
+                letter: "ج",
+                explanation: "<strong>کامنت</strong> یعنی یادداشتی که برنامه‌نویس برای خودش می‌نویسد و مرورگر آن را نمایش نمی‌دهد. در HTML کامنت با <strong>&lt;!--</strong> شروع می‌شود و با <strong>--&gt;</strong> تمام می‌شود. مثلاً می‌نویسیم: &lt;!-- این بخش منو است --&gt; تا بعداً یادمان بیاید این قسمت چیست. کاربر وبسایت کامنت‌ها را نمی‌بیند.",
+                tip: "🎯 نکته: کامنت‌ها برای توضیح کد هستند و در صفحه وب نمایش داده نمی‌شوند."
+            },
+            {
+                id: 7,
+                question: "پروتکل تبدیل نام دامنه به IP کدام است؟",
+                answer: "DNS",
+                letter: "د",
+                explanation: "<strong>DNS</strong> مخفف Domain Name System است. وقتی شما در مرورگر می‌نویسید google.com، کامپیوتر شما نمی‌فهمد google.com کجاست. DNS مثل یک <strong>دفترچه تلفن</strong> عمل می‌کند و می‌گوید google.com همان آدرس IP مثلاً 142.250.185.46 است. بدون DNS باید آدرس IP عددی سایت‌ها را حفظ می‌کردیم!",
+                tip: "🎯 نکته: DNS = دفترچه تلفن اینترنت. اسم سایت را می‌گیرد و آدرس عددی (IP) آن را برمی‌گرداند."
+            },
+            {
+                id: 8,
+                question: "پروتکل مشاهده صفحات وب کدام است؟",
+                answer: "HTTPS",
+                letter: "ب",
+                explanation: "<strong>HTTPS</strong> مخفف HyperText Transfer Protocol Secure است. این پروتکل مثل یک <strong>زبان مشترک</strong> بین مرورگر شما و سرور وبسایت است. وقتی آدرس سایتی را وارد می‌کنید، مرورگر از طریق HTTPS با سرور صحبت می‌کند و صفحه وب را دریافت و نمایش می‌دهد. حرف S آخر یعنی Secure (امن) که اطلاعات رمزنگاری می‌شوند.",
+                tip: "🎯 نکته: DHCP برای دادن IP خودکار، SMB برای اشتراک فایل و DNS برای تبدیل نام به IP است."
+            },
+            {
+                id: 9,
+                question: "کدام جمله صحیح نیست؟",
+                answer: "برای ایجاد شدن کدهای HTML CSS نیاز به برنامه‌ای دارد که کدها را کامپایل کند",
+                letter: "الف",
+                explanation: "این جمله <strong>غلط</strong> است چون HTML و CSS اصلاً <strong>کامپایل</strong> نمی‌شوند! کامپایل یعنی کل کد یکجا به زبان ماشین تبدیل شود (مثل C++). اما HTML و CSS <strong>تفسیر</strong> (Interpret) می‌شوند، یعنی مرورگر خط به خط کد را می‌خواند و نمایش می‌دهد. مرورگرها برنامه‌های مفسری هستند و شما حتی در نوت‌پد ساده هم می‌توانید HTML بنویسید.",
+                tip: "🎯 نکته: کامپایل ≠ تفسیر. مرورگرها مفسر هستند نه کامپایلر."
+            },
+            {
+                id: 10,
+                question: "تگ لیست شماره‌دار کدام است؟",
+                answer: "&lt;ol&gt;",
+                letter: "ب",
+                explanation: "تگ <strong>&lt;ol&gt;</strong> مخفف Ordered List یعنی <strong>لیست مرتب</strong> است. این تگ یک لیست با شماره می‌سازد (1، 2، 3 و...). هر آیتم لیست با تگ &lt;li&gt; نوشته می‌شود. مثال: وقتی می‌خواهید مراحل آشپزی را بنویسید از لیست شماره‌دار استفاده می‌کنید چون ترتیب مهم است.",
+                tip: "🎯 نکته: ol = Ordered List (شماره‌دار) | ul = Unordered List (بدون شماره)"
+            },
+            {
+                id: 11,
+                question: "تگ لیست با نماد bullet کدام است؟",
+                answer: "&lt;ul&gt;",
+                letter: "الف",
+                explanation: "تگ <strong>&lt;ul&gt;</strong> مخفف Unordered List یعنی <strong>لیست بدون ترتیب</strong> است. این تگ یک لیست با نقطه‌های توپر (●) می‌سازد. وقتی ترتیب آیتم‌ها مهم نیست از ul استفاده می‌کنیم. مثال: لیست خرید یا لیست ویژگی‌های یک محصول. تگ &lt;dl&gt; برای لیست توضیحی و &lt;ol&gt; برای لیست شماره‌دار است.",
+                tip: "🎯 نکته: bullet یعنی همان دایره‌های توپر مشکی (●) کنار هر آیتم لیست."
+            },
+            {
+                id: 12,
+                question: "دستور bold کردن تمام تگ‌های p کدام است؟",
+                answer: "p{font-weight:bold;}",
+                letter: "الف",
+                explanation: "برای <strong>ضخیم (bold)</strong> کردن متن در CSS از خاصیت <strong>font-weight</strong> استفاده می‌کنیم. دستور p{font-weight:bold;} یعنی: «تمام پاراگراف‌ها (تگ‌های p) را ضخیم کن». این یک دستور CSS خارجی/داخلی است. گزینه‌های دیگر اشتباه هستند چون text-size اصلاً در CSS وجود ندارد.",
+                tip: "🎯 نکته: ساختار CSS = انتخابگر { خاصیت: مقدار; }"
+            },
+            {
+                id: 13,
+                question: "تگ‌های block level چه نوع تگ‌هایی هستند؟",
+                answer: "عرض این نوع تگ‌ها به اندازه عرض کل صفحه است مانند تگ P",
+                letter: "ب",
+                explanation: "تگ‌ها در HTML دو نوع هستند: <strong>Block</strong> و <strong>Inline</strong>. تگ‌های Block مثل یک جعبه بزرگ هستند که <strong>کل عرض صفحه</strong> را می‌گیرند و بعد از آنها خط عوض می‌شود. مثال: تگ‌های p، div، h1. تگ‌های Inline فقط به اندازه محتوایشان جا می‌گیرند و خط عوض نمی‌شود. مثال: تگ‌های a، span، strong.",
+                tip: "🎯 نکته: Block = کل عرض صفحه + خط جدید | Inline = فقط به اندازه محتوا"
+            },
+            {
+                id: 14,
+                question: "CSS مخفف چیست؟",
+                answer: "Cascading Style Sheet",
+                letter: "ب",
+                explanation: "<strong>CSS</strong> مخفف Cascading Style Sheets یعنی <strong>شیوه‌نامه‌های آبشاری</strong> است. CSS زبانی است که ظاهر صفحات وب را مشخص می‌کند. مثلاً رنگ متن، اندازه فونت، فاصله‌ها، و چیدمان عناصر. کلمه Cascading (آبشاری) یعنی اگر چند استایل همزمان روی یک عنصر اعمال شود، CSS طبق اولویت‌بندی خاصی تصمیم می‌گیرد کدام اجرا شود.",
+                tip: "🎯 نکته: HTML = ساختار صفحه | CSS = ظاهر و زیبایی صفحه | JavaScript = رفتار و تعامل"
+            },
+            {
+                id: 15,
+                question: "خصوصیت جایگزین عکس نمایش داده نشده کدام است؟",
+                answer: "Alt",
+                letter: "ب",
+                explanation: "ویژگی <strong>alt</strong> مخفف Alternative Text یعنی <strong>متن جایگزین</strong> است. وقتی عکسی به هر دلیلی نمایش داده نشود (اینترنت ضعیف، آدرس اشتباه، ...)، مرورگر به جای عکس این متن را نشان می‌دهد. مثال: &lt;img src=\"photo.jpg\" alt=\"عکس گل رز\"&gt;. ویژگی title فقط tooltip نشان می‌دهد و src آدرس عکس است.",
+                tip: "🎯 نکته: alt برای دسترسی‌پذیری هم مهم است. افراد نابینا با صفحه‌خوان‌ها متن alt را می‌شنوند."
+            },
+            {
+                id: 16,
+                question: "شرح تگ‌های Image Map با shape=rect",
+                answer: "نمایش یک قسمت مستطیل شکل از تصویر به عنوان لینک برای کلیک کردن",
+                letter: "د",
+                explanation: "تگ‌های <strong>Image Map</strong> به شما اجازه می‌دهند روی قسمت‌های مختلف یک عکس لینک بگذارید. وقتی <strong>shape=\"rect\"</strong> نوشته شده یعنی یک ناحیه <strong>مستطیل شکل</strong> از عکس قابل کلیک است. کلمه rect مخفف rectangle (مستطیل) است. اگر shape=\"circle\" بود یعنی دایره‌ای. مختصات coords هم مشخص می‌کند این مستطیل کجای عکس باشد.",
+                tip: "🎯 نکته: rect = مستطیل | circle = دایره | poly = چندضلعی"
+            },
+            {
+                id: 17,
+                question: "کاراکتر انتهای تگ بسته کدام است؟",
+                answer: "/",
+                letter: "ب",
+                explanation: "در HTML هر تگ باز باید یک تگ بسته داشته باشد. تگ بسته دقیقاً مثل تگ باز است فقط یک علامت <strong>/</strong> (اسلش) قبل از نام تگ اضافه می‌شود. مثال: تگ باز &lt;p&gt; و تگ بسته &lt;/p&gt;. تگ باز &lt;div&gt; و تگ بسته &lt;/div&gt;. بعضی تگ‌ها مثل &lt;br&gt; و &lt;img&gt; خودبسته هستند و تگ بسته ندارند.",
+                tip: "🎯 نکته: / همیشه قبل از نام تگ در تگ بسته قرار می‌گیرد."
+            },
+            {
+                id: 18,
+                question: "تگ مناسب hyperlink کدام است؟",
+                answer: "&lt;a href=\"https://www.w3schools.com\"&gt;w3schools&lt;/a&gt;",
+                letter: "ج",
+                explanation: "برای ساختن <strong>لینک</strong> (Hyperlink) از تگ <strong>&lt;a&gt;</strong> با ویژگی <strong>href</strong> استفاده می‌کنیم. href مخفف Hypertext Reference است و آدرس مقصد لینک را مشخص می‌کند. متن بین تگ باز و بسته، متنی است که کاربر روی آن کلیک می‌کند. ویژگی‌های name و url برای لینک‌سازی استفاده نمی‌شوند.",
+                tip: "🎯 نکته: href = آدرس مقصد | متن بین تگ = متن قابل کلیک"
+            },
+            {
+                id: 19,
+                question: "تگ عنوان ستون و ردیف جدول کدام‌اند؟",
+                answer: "Th (عنوان ستون) و Tr (ردیف جدول)",
+                letter: "الف",
+                explanation: "در جدول‌های HTML سه تگ اصلی داریم: <strong>tr</strong> مخفف Table Row یعنی <strong>ردیف</strong> جدول. <strong>th</strong> مخفف Table Header یعنی <strong>عنوان ستون</strong> (متن آن بولد و وسط‌چین است). <strong>td</strong> مخفف Table Data یعنی <strong>داده عادی</strong> در خانه جدول. پس Th برای عنوان ستون و Tr برای ردیف استفاده می‌شود.",
+                tip: "🎯 نکته: tr = ردیف | th = عنوان ستون (بولد) | td = داده عادی"
+            },
+            {
+                id: 20,
+                question: "کدام جمله درباره تگ‌های جدول اشتباه است؟",
+                answer: "این جدول سه سطر دارد",
+                letter: "د",
+                explanation: "بیایید کد را بررسی کنیم: تگ Table با عرض 100% ✅ پس عرض جدول 100 درصد است. تگ Caption عنوان جدول را مشخص می‌کند ✅ پس جدول عنوان دارد. اما فقط <strong>یک تگ Tr</strong> در کد نشان داده شده، پس <strong>نمی‌توانیم بگوییم سه سطر دارد</strong>. این جمله اشتباه است. هر تگ Tr یک ردیف ایجاد می‌کند.",
+                tip: "🎯 نکته: هر تگ Tr = یک ردیف. برای 3 ردیف باید 3 تگ Tr داشته باشیم."
+            },
+            {
+                id: 21,
+                question: "تگ ایجاد checkbox کدام است؟",
+                answer: "&lt;input type=\"checkbox\"&gt;",
+                letter: "ج",
+                explanation: "<strong>Checkbox</strong> همان مربع‌های کوچکی است که با تیک زدن انتخاب می‌شوند. برای ساختن آن از تگ <strong>&lt;input&gt;</strong> با <strong>type=\"checkbox\"</strong> استفاده می‌کنیم. تگ input یک تگ همه‌کاره است و با تغییر type آن، انواع مختلف ورودی ساخته می‌شود. مثلاً type=\"text\" برای متن، type=\"radio\" برای دکمه رادیویی.",
+                tip: "🎯 نکته: checkbox (با x) درست است نه check."
+            },
+            {
+                id: 22,
+                question: "تگ ورود متن در HTML کدام است؟",
+                answer: "&lt;input type=\"text\"&gt;",
+                letter: "ج",
+                explanation: "برای ساختن یک <strong>فیلد متنی</strong> (جعبه‌ای که کاربر متن تایپ می‌کند) از تگ <strong>&lt;input type=\"text\"&gt;</strong> استفاده می‌کنیم. تگ‌های Textfield و Textinput اصلاً در HTML وجود ندارند. همچنین type=\"textfield\" هم اشتباه است. نوع صحیح فقط \"text\" است.",
+                tip: "🎯 نکته: تگ input خودبسته است و تگ بسته ندارد."
+            },
+            {
+                id: 23,
+                question: "شرح تگ‌های Image Map (سوال تکراری)",
+                answer: "نمایش یک قسمت مستطیل شکل از تصویر به عنوان لینک برای کلیک کردن",
+                letter: "د",
+                explanation: "این سوال مشابه سوال ۱۶ است. چون در کد نوشته <strong>shape=\"rect\"</strong>، پس یک ناحیه <strong>مستطیل شکل</strong> (rectangle) از عکس به عنوان لینک تعریف شده. وقتی کاربر روی آن قسمت از عکس کلیک کند، به صفحه Computer.html منتقل می‌شود. ربطی به نقشه گوگل ندارد!",
+                tip: "🎯 نکته: Image Map = قابل کلیک کردن بخش‌های مختلف یک عکس"
+            },
+            {
+                id: 24,
+                question: "دستور شفافیت عکس کدام است؟",
+                answer: "Opacity",
+                letter: "الف",
+                explanation: "خاصیت <strong>opacity</strong> در CSS میزان <strong>شفافیت</strong> یک عنصر را تعیین می‌کند. مقدار آن بین <strong>0</strong> (کاملاً شفاف و نامرئی) تا <strong>1</strong> (کاملاً مات و قابل مشاهده) است. مثال: opacity: 0.5 یعنی نیمه‌شفاف. خاصیت‌های Hide، Show و Imageopacity در CSS وجود ندارند.",
+                tip: "🎯 نکته: opacity: 0 = نامرئی | opacity: 0.5 = نیمه‌شفاف | opacity: 1 = کاملاً قابل مشاهده"
+            },
+            {
+                id: 25,
+                question: "تگ internal CSS کدام است؟",
+                answer: "&lt;style&gt;",
+                letter: "ج",
+                explanation: "CSS را سه جا می‌توان نوشت: ۱) <strong>Inline</strong>: مستقیم در تگ با ویژگی style. ۲) <strong>Internal</strong>: داخل تگ <strong>&lt;style&gt;</strong> در بخش head صفحه. ۳) <strong>External</strong>: در فایل جداگانه .css که با تگ &lt;link&gt; به صفحه وصل می‌شود. پس تگ &lt;style&gt; برای CSS داخلی (Internal) استفاده می‌شود. تگ &lt;script&gt; برای جاوااسکریپت است.",
+                tip: "🎯 نکته: Internal CSS = داخل تگ style | External CSS = فایل جداگانه + تگ link"
+            },
+            {
+                id: 26,
+                question: "دستور صحیح CSS کدام است؟",
+                answer: "Body{color:black;}",
+                letter: "د",
+                explanation: "ساختار صحیح CSS این است: اول <strong>انتخابگر</strong> (مثل body)، بعد <strong>آکولاد باز {</strong>، بعد <strong>خاصیت: مقدار;</strong> (مثل color:black;)، و در آخر <strong>آکولاد بسته }</strong>. پس Body{color:black;} درست است. در گزینه‌های دیگر از علامت مساوی به جای دو نقطه استفاده شده یا آکولاد در جای اشتباه قرار دارد.",
+                tip: "🎯 نکته: قالب CSS: انتخابگر { خاصیت: مقدار; } ← حتماً دو نقطه و سِمیکالِن داشته باشد."
+            },
+            {
+                id: 27,
+                question: "نحوه انتخاب گروهی تگ‌ها چگونه است؟",
+                answer: "بین هر تگ علامت , (ویرگول)",
+                letter: "الف",
+                explanation: "وقتی می‌خواهید یک استایل CSS را روی <strong>چند تگ مختلف</strong> همزمان اعمال کنید، بین نام تگ‌ها <strong>ویرگول (,)</strong> می‌گذارید. مثال: h1, h2, p { color: red; } یعنی هر سه تگ h1 و h2 و p رنگشان قرمز شود. علامت + برای انتخاب عنصر بعدی و فاصله برای انتخاب فرزندان استفاده می‌شود.",
+                tip: "🎯 نکته: , = گروه‌بندی | (فاصله) = فرزند | + = خواهر/برادر بعدی"
+            },
+            {
+                id: 28,
+                question: "انتخاب تگ‌های p درون div چگونه است؟",
+                answer: "div p",
+                letter: "الف",
+                explanation: "وقتی بین دو انتخابگر <strong>فاصله</strong> بگذاریم، یعنی عنصر دوم <strong>داخل</strong> (فرزند) عنصر اول باشد. پس <strong>div p</strong> یعنی «تمام تگ‌های p که داخل div هستند». به این سلکتور <strong>Descendant Selector</strong> (انتخابگر نسلی) می‌گویند. div + p یعنی تگ p که دقیقاً بعد از div قرار دارد (نه داخل آن).",
+                tip: "🎯 نکته: div p = تگ p داخل div | div + p = تگ p بلافاصله بعد از div"
+            },
+            {
+                id: 29,
+                question: "دستور تغییر رنگ پس‌زمینه کدام است؟",
+                answer: "background-color",
+                letter: "ج",
+                explanation: "در CSS خاصیت <strong>background-color</strong> رنگ <strong>پس‌زمینه</strong> یک عنصر را تغییر می‌دهد. مثال: body { background-color: yellow; }. توجه کنید که خاصیت <strong>color</strong> فقط رنگ <strong>متن</strong> را تغییر می‌دهد نه پس‌زمینه را. Bg color و Backgroundcolor هم در CSS وجود ندارند (خط تیره بین background و color لازم است).",
+                tip: "🎯 نکته: color = رنگ متن | background-color = رنگ پس‌زمینه"
+            },
+            {
+                id: 30,
+                question: "تگ اضافه کردن عکس به محتوا کدام است؟",
+                answer: "&lt;img src=\"A.jpg\"&gt;",
+                letter: "الف",
+                explanation: "برای اضافه کردن عکس به صفحه وب از تگ <strong>&lt;img&gt;</strong> با ویژگی <strong>src</strong> (مخفف source = منبع) استفاده می‌کنیم. این تگ عکس را مستقیماً به <strong>محتوای HTML</strong> اضافه می‌کند. توجه: background-image یک خاصیت CSS است و عکس را به عنوان <strong>پس‌زمینه</strong> قرار می‌دهد نه به عنوان محتوا. همچنین href برای لینک استفاده می‌شود نه برای عکس.",
+                tip: "🎯 نکته: img + src = عکس در محتوا | background-image = عکس در پس‌زمینه"
+            },
+            {
+                id: 31,
+                question: "دستور تغییر نوع فونت کدام است؟",
+                answer: "font-family",
+                letter: "ب",
+                explanation: "خاصیت <strong>font-family</strong> نوع <strong>قلم</strong> (فونت) متن را تعیین می‌کند. مثال: font-family: Arial, sans-serif; یعنی از فونت Arial استفاده کن. تفاوت با بقیه: <strong>font-style</strong> برای کج کردن متن (italic)، <strong>font-size</strong> برای اندازه فونت، و <strong>font-weight</strong> برای ضخامت (bold) فونت است.",
+                tip: "🎯 نکته: family = خانواده فونت | style = سبک (کج) | size = اندازه | weight = ضخامت"
+            },
+            {
+                id: 32,
+                question: "دستور bold کردن متن در CSS کدام است؟",
+                answer: "font-weight",
+                letter: "د",
+                explanation: "خاصیت <strong>font-weight</strong> ضخامت فونت را کنترل می‌کند. مقدار <strong>bold</strong> متن را ضخیم می‌کند. می‌توانید مقادیر عددی هم بدهید: 100 (خیلی نازک) تا 900 (خیلی ضخیم). مقدار normal برابر 400 و bold برابر 700 است. font-style برای کج کردن (italic)، font-size برای اندازه و font-family برای نوع فونت است.",
+                tip: "🎯 نکته: font-weight: bold = ضخیم | font-weight: normal = عادی | font-weight: 900 = خیلی ضخیم"
+            },
+            {
+                id: 33,
+                question: "دستور تغییر نماد لیست غیرتزئینی کدام است؟",
+                answer: "list-style-type",
+                letter: "الف",
+                explanation: "خاصیت <strong>list-style-type</strong> نوع <strong>نماد</strong> (علامت) لیست را تغییر می‌دهد. مثلاً: disc (دایره توپر ●)، circle (دایره خالی ○)، square (مربع ■)، none (بدون نماد)، decimal (اعداد). list-style-position محل قرارگیری نماد را تعیین می‌کند و list-style-image عکس به جای نماد می‌گذارد.",
+                tip: "🎯 نکته: type = نوع نماد | position = محل نماد | image = عکس به جای نماد"
+            },
+            {
+                id: 34,
+                question: "دستور عکس به جای نماد لیست کدام است؟",
+                answer: "list-style-image",
+                letter: "ج",
+                explanation: "خاصیت <strong>list-style-image</strong> به شما اجازه می‌دهد به جای نمادهای پیش‌فرض لیست (مثل ● یا ■)، یک <strong>عکس دلخواه</strong> قرار دهید. مثال: list-style-image: url('star.png'); این دستور یک ستاره کوچک به جای نقطه کنار هر آیتم لیست نمایش می‌دهد.",
+                tip: "🎯 نکته: مقدار این خاصیت به صورت url('آدرس عکس') نوشته می‌شود."
+            },
+            {
+                id: 35,
+                question: "Margin: 12px 24px; چه می‌کند؟",
+                answer: "ایجاد حاشیه بیرونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+                letter: "الف",
+                explanation: "<strong>Margin</strong> یعنی حاشیه <strong>بیرونی</strong> (فاصله عنصر از عناصر اطرافش). وقتی دو مقدار می‌نویسیم: مقدار اول <strong>بالا و پایین</strong> و مقدار دوم <strong>چپ و راست</strong> را تنظیم می‌کند. پس margin: 12px 24px; یعنی بالا و پایین 12 پیکسل فاصله و چپ و راست 24 پیکسل فاصله از عناصر مجاور.",
+                tip: "🎯 نکته: ۱ مقدار = همه طرف | ۲ مقدار = بالاپایین چپراست | ۴ مقدار = بالا راست پایین چپ"
+            },
+            {
+                id: 36,
+                question: "Padding: 12px 24px; چه می‌کند؟",
+                answer: "ایجاد حاشیه درونی از بالا و پایین ۱۲ پیکسل و از چپ و راست ۲۴ پیکسل",
+                letter: "الف",
+                explanation: "<strong>Padding</strong> یعنی حاشیه <strong>درونی</strong> (فاصله محتوا از لبه‌های خود عنصر). مثل margin، وقتی دو مقدار بنویسیم: اولی <strong>بالا و پایین</strong> و دومی <strong>چپ و راست</strong>. تفاوت margin و padding: margin فاصله <strong>بیرون</strong> عنصر و padding فاصله <strong>درون</strong> عنصر است. فرض کنید جعبه‌ای دارید؛ padding فاصله محتوا تا دیواره جعبه و margin فاصله جعبه تا اشیای اطرافش است.",
+                tip: "🎯 نکته: Padding = فاصله درونی (محتوا تا لبه) | Margin = فاصله بیرونی (عنصر تا همسایه)"
+            },
+            {
+                id: 37,
+                question: "دستور فاصله بین خطوط کدام است؟",
+                answer: "line-height",
+                letter: "ب",
+                explanation: "خاصیت <strong>line-height</strong> فاصله بین <strong>خطوط</strong> متن را تنظیم می‌کند. مثلاً line-height: 2; یعنی فاصله بین خطوط دو برابر حالت عادی باشد. این خاصیت باعث خوانایی بهتر متن می‌شود. letter-spacing برای فاصله بین حروف، word-spacing برای فاصله بین کلمات و text-align برای تراز متن (چپ، راست، وسط) است.",
+                tip: "🎯 نکته: line-height = فاصله خطوط | letter-spacing = فاصله حروف | word-spacing = فاصله کلمات"
+            },
+            {
+                id: 38,
+                question: "دستور فاصله بین حروف کدام است؟",
+                answer: "letter-spacing",
+                letter: "الف",
+                explanation: "خاصیت <strong>letter-spacing</strong> فاصله بین <strong>حروف</strong> (کاراکترها) را تنظیم می‌کند. مثلاً letter-spacing: 3px; یعنی بین هر حرف 3 پیکسل فاصله باشد. این خاصیت برای طراحی عنوان‌ها و لوگوها کاربرد زیادی دارد. توجه کنید نام صحیح <strong>letter-spacing</strong> است نه little-spacing!",
+                tip: "🎯 نکته: letter (حرف) را با little (کوچک) اشتباه نگیرید!"
+            },
+            {
+                id: 39,
+                question: "تگ شکستن خط (خط جدید) کدام است؟",
+                answer: "&lt;br&gt;",
+                letter: "ج",
+                explanation: "تگ <strong>&lt;br&gt;</strong> مخفف Break (شکستن) است و باعث می‌شود متن به <strong>خط بعدی</strong> برود. این تگ <strong>خودبسته</strong> است یعنی تگ بسته ندارد. مثال: سلام&lt;br&gt;خداحافظ → سلام در یک خط و خداحافظ در خط بعدی نمایش داده می‌شود. تگ‌های &lt;bl&gt;، &lt;break&gt; و &lt;b&gt; (بولد) برای شکستن خط نیستند.",
+                tip: "🎯 نکته: br = Break = شکستن خط | b = Bold = ضخیم کردن متن (فرقشان را یاد بگیرید!)"
+            },
+            {
+                id: 40,
+                question: "تگ نمایش عنوان صفحه وب کدام است؟",
+                answer: "&lt;title&gt;",
+                letter: "الف",
+                explanation: "تگ <strong>&lt;title&gt;</strong> عنوان صفحه وب را مشخص می‌کند. این عنوان در <strong>تب مرورگر</strong> (بالای صفحه) و در <strong>نتایج جستجوی گوگل</strong> نمایش داده می‌شود. تگ title باید داخل تگ &lt;head&gt; قرار بگیرد. توجه: تگ &lt;head&gt; خودش بخش اطلاعات صفحه است، &lt;meta&gt; برای اطلاعات فنی و &lt;html&gt; تگ اصلی کل صفحه است.",
+                tip: "🎯 نکته: عنوان تب مرورگر = title | اطلاعات صفحه = head | کل صفحه = html"
+            }
+        ];
+
+        const letterMap = {'الف': 1, 'ب': 2, 'ج': 3, 'د': 4};
+
+        function toPersianNum(num) {
+            const d = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, c => d[c]);
+        }
+
+        // Render Summary Grid
+        const summaryGrid = document.getElementById('summaryGrid');
+        let summaryHTML = '';
+        answers.forEach(a => {
+            summaryHTML += `<div class="summary-item">
+                <div class="s-num">${toPersianNum(a.id)}</div>
+                <div class="s-ans">${a.letter}</div>
+            </div>`;
+        });
+        summaryGrid.innerHTML = summaryHTML;
+
+        // Render Answers
+        const container = document.getElementById('answersContainer');
+        let html = '';
+        answers.forEach(a => {
+            html += `<div class="answer-card">
+                <div class="q-number">${toPersianNum(a.id)}</div>
+                <div class="answer-content">
+                    <div class="q-title">${a.question}</div>
+                    <div class="correct-answer">
+                        <span class="check-icon">✅</span>
+                        <span>گزینه ${a.letter}:</span>
+                        <span class="answer-text">${a.answer}</span>
+                    </div>
+                    <div class="explanation">
+                        💡 ${a.explanation}
+                        <span class="tip">${a.tip}</span>
+                    </div>
+                </div>
+            </div>`;
+        });
+        container.innerHTML = html;
+
+        // PDF Download Function
+        function downloadPDF() {
+            const btn = document.getElementById('pdfBtn');
+            const overlay = document.getElementById('loadingOverlay');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال ساخت...';
+            overlay.classList.add('show');
+
+            // Create a clean version for PDF
+            const pdfContent = document.createElement('div');
+            pdfContent.style.direction = 'rtl';
+            pdfContent.style.fontFamily = 'Vazirmatn, Tahoma, Arial, sans-serif';
+            pdfContent.style.padding = '20px';
+            pdfContent.style.color = '#333';
+            pdfContent.style.background = '#fff';
+            pdfContent.style.lineHeight = '2';
+
+            let pdfHTML = `
+                <div style="text-align:center; padding:20px 0 30px; border-bottom:3px solid #22c55e; margin-bottom:25px;">
+                    <h1 style="color:#15803d; font-size:1.8em; margin-bottom:8px;">📋 پاسخنامه آزمون HTML و CSS</h1>
+                    <p style="color:#666; font-size:0.95em;">پاسخ صحیح ۴۰ سوال تستی با توضیحات کامل</p>
+                </div>
+                <div style="background:#f0fdf4; border:2px solid #86efac; border-radius:12px; padding:20px; margin-bottom:25px; text-align:center;">
+                    <h2 style="color:#166534; font-size:1.3em; margin-bottom:12px;">📊 جدول سریع پاسخ‌ها</h2>
+                    <table style="width:100%; border-collapse:collapse; margin:0 auto;">
+                        <tr>`;
+            
+            answers.forEach((a, i) => {
+                pdfHTML += `<td style="border:1px solid #bbf7d0; padding:5px 3px; text-align:center; width:10%; background:${i%2===0?'#f0fdf4':'#dcfce7'};">
+                    <div style="font-weight:800; color:#166534; font-size:0.85em;">${toPersianNum(a.id)}</div>
+                    <div style="color:#b45309; font-weight:700; font-size:0.8em;">${a.letter}</div>
+                </td>`;
+                if ((i + 1) % 10 === 0 && i < 39) pdfHTML += `</tr><tr>`;
+            });
+            
+            pdfHTML += `</tr></table></div>
+                <div style="text-align:center; color:#9ca3af; font-size:0.85em; margin:20px 0; border-top:1px solid #e5e7eb; padding-top:10px;">─── پاسخ‌های تشریحی ───</div>`;
+
+            answers.forEach(a => {
+                pdfHTML += `
+                <div style="border:1px solid #d1d5db; border-radius:10px; padding:15px 18px; margin-bottom:12px; page-break-inside:avoid; border-right:4px solid #22c55e; background:#fafafa;">
+                    <div style="font-weight:700; color:#374151; font-size:0.95em; margin-bottom:8px;">
+                        <span style="display:inline-block; background:#22c55e; color:white; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; font-weight:900; font-size:0.85em; margin-left:8px;">${toPersianNum(a.id)}</span>
+                        ${a.question}
+                    </div>
+                    <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:8px 14px; color:#166534; font-weight:700; font-size:0.9em; display:inline-block;">
+                        ✅ گزینه ${a.letter}: ${a.answer}
+                    </div>
+                    <div style="margin-top:8px; padding:10px 14px; background:#eff6ff; border-radius:8px; border-right:3px solid #3b82f6; color:#1e40af; font-size:0.82em; line-height:2;">
+                        💡 ${a.explanation.replace(/<strong>/g, '<b>').replace(/<\/strong>/g, '</b>')}
+                    </div>
+                    <div style="margin-top:5px; padding:6px 14px; color:#92400e; font-size:0.8em; background:#fffbeb; border-radius:6px;">
+                        ${a.tip}
+                    </div>
+                </div>`;
+            });
+
+            pdfHTML += `<div style="text-align:center; margin-top:30px; padding:15px; border-top:2px solid #e5e7eb; color:#9ca3af; font-size:0.8em;">آزمون جامع HTML و CSS - پاسخنامه کامل</div>`;
+
+            pdfContent.innerHTML = pdfHTML;
+            document.body.appendChild(pdfContent);
+
+            const opt = {
+                margin: [8, 8, 8, 8],
+                filename: 'پاسخنامه-آزمون-HTML-CSS.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    letterRendering: true 
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(pdfContent).save().then(() => {
+                document.body.removeChild(pdfContent);
+                btn.disabled = false;
+                btn.textContent = '📥 دانلود PDF';
+                overlay.classList.remove('show');
+            }).catch(err => {
+                console.error(err);
+                document.body.removeChild(pdfContent);
+                btn.disabled = false;
+                btn.textContent = '📥 دانلود PDF';
+                overlay.classList.remove('show');
+                alert('خطا در ساخت PDF. لطفاً دوباره تلاش کنید.');
+            });
+        }
+    </script>
+</body>
+</html>
